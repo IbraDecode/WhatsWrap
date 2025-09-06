@@ -1,6 +1,5 @@
 package com.ibradecode.whatscloneweb;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.RenderProcessGoneDetail;
-import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ProgressBar;
 import androidx.core.content.ContextCompat;
@@ -21,6 +19,7 @@ import androidx.core.app.ActivityCompat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AlertDialog; // ✅ pakai ini
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,8 +28,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import com.ibradecode.whatscloneweb.AccountManager;
-import com.ibradecode.whatscloneweb.NotificationHelper;
 import java.io.InputStream;
 import java.io.IOException;
 import android.net.Uri;
@@ -312,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         builder.setView(dialogView);
 
-        AlertDialog dialog = builder.create();
+        AlertDialog dialog = builder.create(); // ✅ sekarang pakai androidx.appcompat.app.AlertDialog
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
 
@@ -404,7 +401,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    // method sudah di dalam class, bukan di luar
     private String readScriptFromFile(int resourceId) {
         try {
             InputStream inputStream = getResources().openRawResource(resourceId);
