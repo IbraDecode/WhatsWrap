@@ -1,3 +1,6 @@
+plugins {
+    id 'com.android.application'
+}
 android {
     namespace 'com.ibradecode.whatscloneweb'
     compileSdk 34
