@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WhatsCloneWeb</string>
+    <string name="developer_info">Developer: Ibra Decode || Inspired by Meta Whatsapp</string>
+    <string name="app_description">Seperti Wa Asli Tapi Ini Resmi Wa Web Perangkat Tertaut</string>
+    <string-array name="user_agent_options">
+        <item>Default</item>
+        <item>Desktop (Windows)</item>
+        <item>Mobile (Android)</item>
+        <item>Mobile (iOS)</item>
+    </string-array>
+</resources>
+
+

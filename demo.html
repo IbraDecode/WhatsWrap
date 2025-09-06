@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsCloneWeb - Demo CSS Injection</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: #075E54;
+            color: white;
+            padding: 16px;
+            text-align: center;
+        }
+        
+        .demo-section {
+            padding: 20px;
+        }
+        
+        .demo-title {
+            color: #075E54;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .css-code {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: #25D366;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .whatsapp-colors {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .color-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .green { background-color: #075E54; }
+        .green-light { background-color: #128C7E; }
+        .teal { background-color: #25D366; }
+        .blue { background-color: #34B7F1; }
+        .chat-bg { background-color: #ECE5DD; color: #333; }
+        
+        .mock-chat {
+            background-color: #ECE5DD;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            min-height: 200px;
+            position: relative;
+        }
+        
+        .mock-header {
+            background-color: #075E54;
+            color: white;
+            padding: 12px 16px;
+            margin: -20px -20px 20px -20px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .mock-message {
+            background-color: #DCF8C6;
+            padding: 8px 12px;
+            border-radius: 16px;
+            margin: 8px 0;
+            max-width: 70%;
+            margin-left: auto;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .mock-message.incoming {
+            background-color: white;
+            margin-left: 0;
+            margin-right: auto;
+        }
+        
+        .mock-input {
+            background-color: white;
+            padding: 12px 16px;
+            margin: 20px -20px -20px -20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .mock-input input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 8px 16px;
+            outline: none;
+        }
+        
+        .fab-demo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background-color: #075E54;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .fab-demo:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>WhatsCloneWeb - Demo CSS Injection</h1>
+            <p>Developer: Ibra Decode || Inspired by Meta Whatsapp</p>
+            <p><em>Seperti Wa Asli Tapi Ini Resmi Wa Web Perangkat Tertaut</em></p>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">CSS Injection untuk WhatsApp Web</h2>
+            <p>Berikut adalah CSS yang akan diinjeksi ke WhatsApp Web untuk mengubah tampilan menjadi mirip WhatsApp Mobile:</p>
+            
+            <div class="css-code">
+/* Hide sidebar */
+#side { display: none !important; }
+
+/* Expand main chat area */
+#main { width: 100% !important; left: 0 !important; }
+
+/* Header styling */
+header[data-testid='conversation-header'] { 
+  height: 56px !important; 
+  background-color: #075E54 !important; 
+  color: white !important; 
+}
+
+/* Chat area background */
+#main .copyable-area { 
+  background-color: #ECE5DD !important; 
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQwIiBoZWlnaHQ9IjM0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxwYXR0ZXJuIGlkPSJhIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB3aWR0aD0iMzQwIiBoZWlnaHQ9IjM0MCI+CjxwYXRoIGZpbGw9IiNmMGYwZjAiIGQ9Im0wIDBoMzQwdjM0MGgtMzQweiIvPgo8L3BhdHRlcm4+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNhKSIvPgo8L3N2Zz4=') !important; 
+}
+
+/* Message bubbles styling */
+.message-out .copyable-text { 
+  background-color: #DCF8C6 !important; 
+  border-radius: 16px !important; 
+  padding: 8px 12px !important; 
+  margin: 4px !important; 
+}
+
+.message-in .copyable-text { 
+  background-color: white !important; 
+  border-radius: 16px !important; 
+  padding: 8px 12px !important; 
+  margin: 4px !important; 
+}
+
+/* Footer input area */
+footer { 
+  height: 48px !important; 
+  background-color: white !important; 
+  position: sticky !important; 
+  bottom: 0 !important; 
+}
+
+/* Hide desktop-specific elements */
+._2Ts6i { display: none !important; }
+._3j7s9 { display: none !important; }
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">Palet Warna WhatsApp</h2>
+            <div class="whatsapp-colors">
+                <div class="color-box green">#075E54</div>
+                <div class="color-box green-light">#128C7E</div>
+                <div class="color-box teal">#25D366</div>
+                <div class="color-box blue">#34B7F1</div>
+                <div class="color-box chat-bg">#ECE5DD</div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">Fitur Aplikasi</h2>
+            <ul class="feature-list">
+                <li>WebView dengan WhatsApp Web (https://web.whatsapp.com/)</li>
+                <li>Login QR Code dan OTP Pairing</li>
+                <li>Tampilan Mobile-like dengan CSS Injection</li>
+                <li>Floating Action Button untuk pesan baru</li>
+                <li>Riwayat chat dengan SharedPreferences</li>
+                <li>Toolbar dengan menu Reload, Riwayat, Keluar</li>
+                <li>Material Design Components</li>
+                <li>Back button handling</li>
+            </ul>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">Preview Tampilan Chat</h2>
+            <div class="mock-chat">
+                <div class="mock-header">
+                    WhatsApp Chat
+                </div>
+                <div class="mock-message incoming">
+                    Halo, apa kabar?
+                </div>
+                <div class="mock-message">
+                    Baik, terima kasih! Bagaimana dengan kamu?
+                </div>
+                <div class="mock-message incoming">
+                    Alhamdulillah baik juga
+                </div>
+                <div class="mock-message">
+                    Syukurlah 😊
+                </div>
+                <div class="mock-input">
+                    <input type="text" placeholder="Ketik pesan...">
+                    <span>📎</span>
+                    <span>🎤</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-title">Struktur Proyek Android</h2>
+            <div class="css-code">
+WhatsCloneWeb/
+├── app/
+│   ├── src/main/
+│   │   ├── java/com/ibradecode/whatscloneweb/
+│   │   │   ├── MainActivity.java
+│   │   │   ├── HistoryActivity.java
+│   │   │   ├── HistoryAdapter.java
+│   │   │   └── HistoryItem.java
+│   │   ├── res/
+│   │   │   ├── layout/
+│   │   │   ├── menu/
+│   │   │   ├── values/
+│   │   │   └── drawable/
+│   │   └── AndroidManifest.xml
+│   └── build.gradle
+├── build.gradle
+├── settings.gradle
+└── README.md
+            </div>
+        </div>
+    </div>
+    
+    <div class="fab-demo" title="Floating Action Button">
+        💬
+    </div>
+    
+    <script>
+        document.querySelector('.fab-demo').addEventListener('click', function() {
+            alert('FAB diklik! Dalam aplikasi Android, ini akan membuka dialog untuk kirim pesan baru.');
+        });
+    </script>
+</body>
+</html>
+

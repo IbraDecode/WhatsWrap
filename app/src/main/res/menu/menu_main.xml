@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_reload"
+        android:icon="@drawable/ic_refresh"
+        android:title="Reload"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_history"
+        android:icon="@drawable/ic_history"
+        android:title="Riwayat"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_exit"
+        android:title="Keluar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_accounts"
+        android:title="Kelola Akun"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="Pengaturan"
+        app:showAsAction="never" />
+
+</menu>
+
