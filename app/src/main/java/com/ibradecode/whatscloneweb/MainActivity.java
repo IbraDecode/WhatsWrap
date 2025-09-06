@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.webkit.RenderProcessGoneDetail;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ProgressBar;
 import androidx.core.content.ContextCompat;
 import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
@@ -30,7 +31,6 @@ import java.util.Date;
 import java.util.Locale;
 import com.ibradecode.whatscloneweb.AccountManager;
 import com.ibradecode.whatscloneweb.NotificationHelper;
-import java.util.Set;
 import java.io.InputStream;
 import java.io.IOException;
 import android.net.Uri;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int FILE_CHOOSER_REQUEST_CODE = 1;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 2;
     private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 3;
+    private String cameraPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,39 +86,32 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(v -> showSendMessageDialog());
 
         // Load WhatsApp Web
-        // Check for active account and load its data
         String activeAccount = accountManager.getActiveAccount();
         if (activeAccount != null) {
             accountManager.loadAccountData(activeAccount);
             webView.loadUrl("https://web.whatsapp.com/");
         } else {
-            // If no active account, load WhatsApp Web normally and prompt user to save account later
             webView.loadUrl("https://web.whatsapp.com/");
         }
-
-        // Example: Save current account data (you\'d trigger this on logout or app exit)
-        // For demonstration, let\'s assume a fixed account ID for now.
-        // In a real app, you\'d have a mechanism for users to define/select account IDs.
-        // accountManager.saveAccountData("default_account");
     }
 
     private void setupWebView() {
         WebSettings webSettings = webView.getSettings();
-        
+
         // Enable JavaScript
         webSettings.setJavaScriptEnabled(true);
-        
+
         // Enable DOM storage
         webSettings.setDomStorageEnabled(true);
-        
+
         // Enable file access
         webSettings.setAllowFileAccess(true);
         webSettings.setAllowContentAccess(true);
-        
+
         // Enable wide viewport
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
-        
+
         // Apply User-Agent from settings
         SharedPreferences settingsPrefs = getSharedPreferences("WhatsCloneWebSettings", MODE_PRIVATE);
         String userAgent = settingsPrefs.getString("user_agent", "Default");
@@ -128,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (userAgent.equals("Mobile (iOS)")) {
             webSettings.setUserAgentString("Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1");
         } else {
-            // Default or unknown, let WebView decide
             webSettings.setUserAgentString(null);
         }
 
@@ -141,15 +134,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             webSettings.setTextZoom(100);
         }
-        
+
         // Enable zoom controls
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
-        
+
         // Enable mixed content
         webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        
+
         // Enable hardware acceleration
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
 
@@ -179,8 +172,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        
-        // Set WebChromeClient for better compatibility and native feature integration
+
+        // Set WebChromeClient
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -192,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            // For file upload (e.g., camera, gallery)
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
                 if (mFilePathCallback != null) {
@@ -206,10 +198,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent[] intentArray;
                 if (fileChooserParams.getAcceptTypes() != null && fileChooserParams.getAcceptTypes().length > 0) {
-                    // Handle camera/video capture if requested
                     if (fileChooserParams.isCaptureEnabled()) {
                         Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        // You might want to add a video capture intent here as well
                         intentArray = new Intent[]{captureIntent};
                     } else {
                         intentArray = new Intent[0];
@@ -227,13 +217,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
 
-            // For geolocation permissions
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
             }
 
-            // For camera and microphone permissions
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -280,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
             Uri[] results = null;
             if (resultCode == RESULT_OK) {
                 if (intent == null || intent.getData() == null) {
-                    // If no data, then we may have taken a photo
                     if (cameraPhotoPath != null) {
                         results = new Uri[]{Uri.parse(cameraPhotoPath)};
                     }
@@ -302,7 +289,6 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case CAMERA_PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted, you can now proceed with camera operations
                     Toast.makeText(this, "Izin kamera diberikan", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Izin kamera ditolak", Toast.LENGTH_SHORT).show();
@@ -310,7 +296,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case RECORD_AUDIO_PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted, you can now proceed with audio recording
                     Toast.makeText(this, "Izin mikrofon diberikan", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Izin mikrofon ditolak", Toast.LENGTH_SHORT).show();
@@ -318,8 +303,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    private String cameraPhotoPath;
 
     private void showSendMessageDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_send_message, null);
@@ -332,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
-        
+
         dialogView.findViewById(R.id.btnSend).setOnClickListener(v -> {
             String phone = etPhone.getText().toString().trim();
             String message = etMessage.getText().toString().trim();
@@ -347,10 +330,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            // Save to history
             saveToHistory(phone, message);
 
-            // Open WhatsApp Web with message
             String url = "https://web.whatsapp.com/send?phone=" + phone + "&text=" + message;
             webView.loadUrl(url);
 
@@ -364,16 +345,16 @@ public class MainActivity extends AppCompatActivity {
     private void saveToHistory(String phone, String message) {
         String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         String historyEntry = phone + "|" + message + "|" + timestamp;
-        
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String existingHistory = sharedPreferences.getString("chat_history", "");
-        
+
         if (existingHistory.isEmpty()) {
             editor.putString("chat_history", historyEntry);
         } else {
             editor.putString("chat_history", existingHistory + ";" + historyEntry);
         }
-        
+
         editor.apply();
     }
 
@@ -414,7 +395,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         if (webView != null) {
-            // Save current account data before destroying WebView
             String activeAccount = accountManager.getActiveAccount();
             if (activeAccount != null) {
                 accountManager.saveAccountData(activeAccount);
@@ -423,10 +403,8 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
-}
 
-
-
+    // method sudah di dalam class, bukan di luar
     private String readScriptFromFile(int resourceId) {
         try {
             InputStream inputStream = getResources().openRawResource(resourceId);
@@ -439,5 +417,4 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-
-
+}
