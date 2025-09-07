@@ -110,20 +110,20 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setLoadWithOverviewMode(true);
 
         // Paksa selalu Desktop Windows
-webSettings.setUserAgentString(
+        webSettings.setUserAgentString(
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
     "AppleWebKit/537.36 (KHTML, like Gecko) " +
     "Chrome/91.0.4472.124 Safari/537.36");
 
         // Apply Font Size from settings
-        String fontSize = settingsPrefs.getString("font_size", "medium");
-        if (fontSize.equals("small")) {
-            webSettings.setTextZoom(80);
-        } else if (fontSize.equals("large")) {
-            webSettings.setTextZoom(120);
-        } else {
-            webSettings.setTextZoom(100);
-        }
+   String fontSize = sharedPreferences.getString("font_size", "medium");
+if (fontSize.equals("small")) {
+    webSettings.setTextZoom(80);
+} else if (fontSize.equals("large")) {
+    webSettings.setTextZoom(120);
+} else {
+    webSettings.setTextZoom(100);
+}
 
         // Enable zoom controls
         webSettings.setSupportZoom(true);
