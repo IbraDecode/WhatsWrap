@@ -109,18 +109,11 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
 
-        // Apply User-Agent from settings
-        SharedPreferences settingsPrefs = getSharedPreferences("WhatsCloneWebSettings", MODE_PRIVATE);
-        String userAgent = settingsPrefs.getString("user_agent", "Default");
-        if (userAgent.equals("Desktop (Windows)")) {
-            webSettings.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
-        } else if (userAgent.equals("Mobile (Android)")) {
-            webSettings.setUserAgentString("Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Mobile Safari/537.36");
-        } else if (userAgent.equals("Mobile (iOS)")) {
-            webSettings.setUserAgentString("Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1");
-        } else {
-            webSettings.setUserAgentString(null);
-        }
+        // Paksa selalu Desktop Windows
+webSettings.setUserAgentString(
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+    "Chrome/91.0.4472.124 Safari/537.36");
 
         // Apply Font Size from settings
         String fontSize = settingsPrefs.getString("font_size", "medium");
